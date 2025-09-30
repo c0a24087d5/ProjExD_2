@@ -24,6 +24,7 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
+
 def gameover(screen: pg.Surface) -> None:
     ll_img = pg.Surface((1100, 650))  
     pg.draw.rect(ll_img,(0, 0, 0),pg.Rect(0, 0, 1100, 650))
@@ -38,6 +39,7 @@ def gameover(screen: pg.Surface) -> None:
     pg.display.update()
     time.sleep(5)
 
+
 def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:
     bb_imgs = []  
     for r in range(1, 11):  
@@ -47,6 +49,7 @@ def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:
         bb_imgs.append(bb_img)
     bb_accs = [a for a in range(1, 11)]  
     return bb_imgs, bb_accs
+
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
