@@ -68,10 +68,13 @@ def main():
     clock = pg.time.Clock()
     tmr = 0
     bb_imgs, bb_accs = init_bb_imgs()
+
+
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
+            
         screen.blit(bg_img, [0, 0])
         if kk_rct.colliderect(bb_rct):  # こうかとんと爆弾の衝突判定
             gameover(screen)
