@@ -2,6 +2,7 @@ import os
 import random
 import sys
 import pygame as pg
+import time
 
 
 WIDTH, HEIGHT = 1100, 650
@@ -15,17 +16,28 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 
 def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
-    """
-    引数：こうかとんRect or ばくだんRect
-    戻り値：判定結果タプル（横方向，縦方向）
-    画面内ならTrue／画面外ならFalse
-    """
+  
     yoko, tate = True, True
     if rct.left < 0 or WIDTH < rct.right:  # 横方向にはみ出ていたら
         yoko = False
     if rct.top < 0 or HEIGHT < rct.bottom: # 縦方向にはみ出ていたら
         tate = False
     return yoko, tate
+
+def gameover(screen: pg.Surface) -> None:
+    ll_img = pg.Surface((1100, 650))  
+    pg.draw.rect(ll_img,(0, 0, 0),pg.Rect(0, 0, 1100, 650))
+    ll_img.set_alpha(200)   
+    font = pg.font.Font(None, 80)
+    txt = font.render("Game Over", True, (255, 255, 255))
+    ll_img.blit(txt,[410,300])
+    kc_img = pg.image.load("fig/8.png")
+    ll_img.blit(kc_img,[350,290])
+    ll_img.blit(kc_img,[740,290])
+    screen.blit(ll_img,[0,0])
+    pg.display.update()
+    time.sleep(5)
+
 
 
 def main():
@@ -50,6 +62,7 @@ def main():
                 return
         screen.blit(bg_img, [0, 0])
         if kk_rct.colliderect(bb_rct):  # こうかとんと爆弾の衝突判定
+            gameover(screen)
             return  # ゲームオーバー 
 
         key_lst = pg.key.get_pressed()
